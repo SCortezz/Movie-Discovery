@@ -17,9 +17,9 @@ A simple "Movie Discovery" web application that provides information about my fa
 
 #### Things needed to clone the repository and set up to run project locally:
 
-⋅⋅*A git clone of this repository: [git@github.com:SCortezz/project1-samir-cortez.git]
-⋅⋅*A TMDB API KEY from the TMDB's website thru: https://developers.themoviedb.org/3/getting-started/introduction
-⋅⋅*A new .env file with the TMDB API KEY set to TMDB_API_KEY. (Ex. TMDB_API_KEY = ######)
+* A git clone of this repository: git@github.com:SCortezz/project1-samir-cortez.git
+* A TMDB API KEY from the TMDB's website thru: https://developers.themoviedb.org/3/getting-started/introduction
+* A new .env file with the TMDB API KEY set to TMDB_API_KEY. (Ex. TMDB_API_KEY = ######)
 
 FRAMEWORKS AND LIBRARIES NEEDED TO RUN APP, MAKE SURE TO HAVE THESE INSTALLED!
 1. flask
