@@ -78,5 +78,3 @@ def index():
         OVERVIEW = MOVIE_OVERVIEW
         )
 
-app.run()
-
