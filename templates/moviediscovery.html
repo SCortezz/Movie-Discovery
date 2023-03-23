@@ -1,9 +1,35 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href='/static/style.css'>
+
 </head>
 
-<body>
+<body background={{BACKDROP}}>
+    <div class="navbar">
+        <h2 class="logo"> TOP MOVIE PICKS </h2>
+    </div>
+
+    <div class="wrap">
+        <img src={{POSTER}}>
+        <div class="text-box">
+            <h1>{{TITLE}}</h1>
+            <p>{{TAGLINE}}</p>
+
+            {%for Genres in GENRES%}
+            <li>| {{Genres}}</li>
+            {%endfor%}
+            <li> |</li>
+
+            <p>{{OVERVIEW}}</p>
+
+            <div class="link">
+                <p><a href={{WIKI}} target="_blank" ;>Click here to see the wiki page about this movie!</a></p>
+            </div>
+
+        </div>
+    </div>
+
 
 
 </body>

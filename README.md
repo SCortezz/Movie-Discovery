@@ -4,5 +4,17 @@ A simple "Movie Discovery" web application that provides information about my fa
 -What are at least 2 technical issues I encountered with my project? 
 1. One technical issue that I encountered was when I was printing out unwanted information for my genre of the movie. I didn't realize until later that I was working with an array of objects and I had to take a different approach.
 
+2. It wasn't really a technical issue, but I had difficulty getting the Wikipedia link for the movie using the Wiki API.
+
 How did I fix them?
 1. I when to google and search for ways that I could approach my problem and found some solutions that allowed me to print out the information that I only need it.
+
+2. As a solution to my issue, I searched the internet for a solution, asked classmates for assistance, and took advantage of youtube videos, google docs, and office hours provided by my professor.
+
+Things needed to clone the repository and set up to run project locally
+MAKE SURE TO HAVE THESE INSTALLED!
+1. flask
+2. requests
+3. random
+4. json
+5. os
