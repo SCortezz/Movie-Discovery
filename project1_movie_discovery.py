@@ -77,4 +77,3 @@ def index():
         BACKDROP = MOVIE_BACKDROP_IMAGE,
         OVERVIEW = MOVIE_OVERVIEW
         )
-
