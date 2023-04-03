@@ -9,7 +9,7 @@ load_dotenv(find_dotenv())
 
 def get_movie_info():
     TMDB_BASE_URL = "https://api.themoviedb.org/3"
-    TMDB_MOVIE_LIST_PATH = ["/movie/634649", "/movie/361743", "/movie/324786"]
+    TMDB_MOVIE_LIST_PATH = ["/movie/634649", "/movie/361743", "/movie/324786", "/movie/263115"]
     TMDB_MOVIE_PATH = random.choice(TMDB_MOVIE_LIST_PATH)
 
     movie_response = requests.get(
