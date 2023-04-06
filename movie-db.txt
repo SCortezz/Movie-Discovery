@@ -1,0 +1,8 @@
+Postgres cluster movie-db created
+  Username:    postgres
+  Password:    cB2Aunsu9ZyUGym
+  Hostname:    movie-db.internal
+  Flycast:     fdaa:1:ba2c:0:1::a
+  Proxy port:  5432
+  Postgres port:  5433
+  Connection string: postgres://postgres:cB2Aunsu9ZyUGym@movie-db.flycast:5432

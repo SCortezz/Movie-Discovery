@@ -3,6 +3,7 @@ import requests
 import random
 import json
 import os
+from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
@@ -64,9 +65,64 @@ def get_wiki_link(MOVIE_NAME):
     return wiki_link
 
 app = flask.Flask(__name__)
+app.secret_key = os.getenv("SUPER_SECRET_KEY")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+
+    def __repr__(self) -> str:
+        return f"Person with username: {self.username}"
+    
+with app.app_context():
+    db.create_all()
+
 
 @app.route("/")
 def index():
+    return flask.render_template("login.html")
+
+@app.route("/login", methods=["POST", "GET"])
+def login_user():
+    if flask.request.method == "POST":
+        form_data_login = flask.request.form
+        login_username = form_data_login["username"]
+        if (check_username(login_username)):
+            return flask.redirect(flask.url_for("home_page"))
+        else:
+            flask.flash("User not found")
+            return flask.render_template("login.html")
+    else:
+        return flask.render_template("login.html")
+    
+def check_username(username):
+    return User.query.filter_by(username=username).first()
+
+
+@app.route("/signup", methods=["POST", "GET"])
+def signup_user():
+    if flask.request.method == "POST":
+        form_data_signup = flask.request.form
+        signup_username = form_data_signup["username"]
+        user = User(username=signup_username)
+        if (check_username(signup_username)):
+            flask.flash("This username has been used. Try a different one")
+            return flask.render_template("signup.html")
+        else:
+            db.session.add(user)
+            db.session.commit()
+            flask.flash("You have successfully signed up. Please login to continue.")
+            return flask.redirect(flask.url_for("login_user"))
+
+    else:
+        return flask.render_template("signup.html")
+
+
+
+@app.route("/home")
+def home_page():
     get_movie_info()
     return flask.render_template("moviediscovery.html",
         TITLE = MOVIE_NAME,
@@ -77,3 +133,5 @@ def index():
         BACKDROP = MOVIE_BACKDROP_IMAGE,
         OVERVIEW = MOVIE_OVERVIEW
         )
+
+app.run(debug=True)
