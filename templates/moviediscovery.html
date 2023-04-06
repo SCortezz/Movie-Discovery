@@ -30,8 +30,35 @@
         </div>
     </div>
 
+    <div class="comment-section">
+        <h3 class="comment-title">Comments:</h3>
+        {% if comments %}
+        <div class="comment-form">
+            <h4 class="form-title">Leave a Comment</h4>
+            <form action="{{ url_for('home_page') }}" method="POST">
+                <textarea name="comment" placeholder="Enter your comment here..."></textarea><br>
+                <input type="submit" value="Post Comment">
+            </form>
+        </div>
+        {% else %}
+        <p class="no-comments">No comments yet. Be the first to post!</p>
+        {% endif %}
+        <div class="comment-container">
+            <ul class="comment-list">
+                {% for comment in comments %}
+                <li class="comment-item">
+                    <div class="comment-author">User: {{ comment.author.username }} </div>
+                    <div class="comment-body"> {{ comment.body }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
 
 
+    </div>
+    </div>
 </body>
+<footer>
+</footer>
 
 </html>

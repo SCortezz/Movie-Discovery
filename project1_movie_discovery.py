@@ -100,6 +100,7 @@ def login_user():
         form_data_login = flask.request.form
         login_username = form_data_login["username"]
         if (check_username(login_username)):
+            flask.session['username'] = login_username
             return flask.redirect(flask.url_for("home_page"))
         else:
             flask.flash("User not found")
@@ -133,8 +134,19 @@ def signup_user():
 @app.route("/home", methods=["POST", "GET"])
 def home_page():
     get_movie_info()
-    return flask.render_template("moviediscovery.html",
-        TITLE = MOVIE_NAME, TAGLINE = MOVIE_TAGLINE, GENRES = MOVIE_GENRES, POSTER = MOVIE_POSTER_IMAGE,
-        WIKI = MOVIE_WIKI_LINK, BACKDROP = MOVIE_BACKDROP_IMAGE, OVERVIEW = MOVIE_OVERVIEW)
+    comments = Comment.query.all()
+    if flask.request.method == "POST":
+        if 'username' not in flask.session:
+            return flask.redirect(flask.url_for("login_user"))
+        user = User.query.filter_by(username=flask.session['username']).first()
+        comment = Comment(body=flask.request.form['comment'], author=user)
+        db.session.add(comment)
+        db.session.commit()
+        return flask.redirect(flask.url_for("home_page"))
+    else:
+        get_movie_info()
+        return flask.render_template("moviediscovery.html",
+            TITLE = MOVIE_NAME, TAGLINE = MOVIE_TAGLINE, GENRES = MOVIE_GENRES, POSTER = MOVIE_POSTER_IMAGE,
+            WIKI = MOVIE_WIKI_LINK, BACKDROP = MOVIE_BACKDROP_IMAGE, OVERVIEW = MOVIE_OVERVIEW, comments=comments)
 
 app.run(debug=True)
