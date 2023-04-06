@@ -15,6 +15,11 @@ A simple "Movie Discovery" web application that provides information about my fa
 
 3. To find a solution, I went to fly.io's troubleshoot page, but with the help of some of my classmates, I was able to fix the issue.
 
+#### What differed from my expectations during implementing
+When I was adding the comments section, I got stuck trying to figure out the logic behind how to show the user's name next to their comment as just print out a username would not work. But then I realized I needed to make it so that only logged-in users can comment and their username would automatically appear next to their comment.
+
+The implementation of the ratings feature presented more challenges than that of the comments feature. Initially, I had assumed that the implementation process would be similar to that of the comments feature, but encountered errors in the process.
+
 #### Things needed to clone the repository and set up to run project locally:
 
 * A git clone of this repository: git@github.com:SCortezz/project1-samir-cortez.git.

@@ -37,26 +37,37 @@
             <h4 class="form-title">Leave a Comment</h4>
             <form action="{{ url_for('home_page') }}" method="POST">
                 <textarea name="comment" placeholder="Enter your comment here..."></textarea><br>
-                <input type="submit" value="Post Comment">
+                <h2 class="form-title">Rating (1-5)</h2>
+                <textarea name="stars" placeholder="Enter your rating here..."></textarea><br>
+                <input type="submit" value="Post">
             </form>
         </div>
         {% else %}
         <p class="no-comments">No comments yet. Be the first to post!</p>
+        <div class="comment-form">
+            <h4 class="form-title">Leave a Comment</h4>
+            <form action="{{ url_for('home_page') }}" method="POST">
+                <textarea name="comment" placeholder="Enter your comment here..."></textarea><br>
+                <h2 class="form-title">Rating (1-5)</h2>
+                <textarea name="stars" placeholder="Enter your rating here..."></textarea><br>
+                <input type="submit" value="Post">
+            </form>
+        </div>
         {% endif %}
         <div class="comment-container">
             <ul class="comment-list">
                 {% for comment in comments %}
                 <li class="comment-item">
                     <div class="comment-author">User: {{ comment.author.username }} </div>
-                    <div class="comment-body"> {{ comment.body }}</div>
+                    <div class="comment-body">, Comment: {{ comment.body }}</div>
+                    <div class="comment-stars">, Rating: {{ comment.stars }}</div>
                 </li>
                 {% endfor %}
             </ul>
         </div>
+    </div>
 
 
-    </div>
-    </div>
 </body>
 <footer>
 </footer>

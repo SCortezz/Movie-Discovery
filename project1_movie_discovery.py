@@ -80,6 +80,7 @@ class User(db.Model):
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text, nullable=False)
+    stars = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self) -> str:
@@ -136,10 +137,14 @@ def home_page():
     get_movie_info()
     comments = Comment.query.all()
     if flask.request.method == "POST":
+        form_data_comments = flask.request.form
+        text_comments = form_data_comments['comment']
+        get_stars = form_data_comments['stars']
+
         if 'username' not in flask.session:
             return flask.redirect(flask.url_for("login_user"))
         user = User.query.filter_by(username=flask.session['username']).first()
-        comment = Comment(body=flask.request.form['comment'], author=user)
+        comment = Comment(body=text_comments, stars=get_stars, author=user)
         db.session.add(comment)
         db.session.commit()
         return flask.redirect(flask.url_for("home_page"))
@@ -149,4 +154,4 @@ def home_page():
             TITLE = MOVIE_NAME, TAGLINE = MOVIE_TAGLINE, GENRES = MOVIE_GENRES, POSTER = MOVIE_POSTER_IMAGE,
             WIKI = MOVIE_WIKI_LINK, BACKDROP = MOVIE_BACKDROP_IMAGE, OVERVIEW = MOVIE_OVERVIEW, comments=comments)
 
-app.run(debug=True)
+#app.run(debug=True)
