@@ -72,9 +72,19 @@ db = SQLAlchemy(app)
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
+    comments = db.relationship('Comment', backref='author', lazy=True)
 
     def __repr__(self) -> str:
         return f"Person with username: {self.username}"
+    
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self) -> str:
+        return '<Comment %r' % self.username
+    
     
 with app.app_context():
     db.create_all()
@@ -118,20 +128,13 @@ def signup_user():
 
     else:
         return flask.render_template("signup.html")
+    
 
-
-
-@app.route("/home")
+@app.route("/home", methods=["POST", "GET"])
 def home_page():
     get_movie_info()
     return flask.render_template("moviediscovery.html",
-        TITLE = MOVIE_NAME,
-        TAGLINE = MOVIE_TAGLINE,
-        GENRES = MOVIE_GENRES,
-        POSTER = MOVIE_POSTER_IMAGE,
-        WIKI = MOVIE_WIKI_LINK,
-        BACKDROP = MOVIE_BACKDROP_IMAGE,
-        OVERVIEW = MOVIE_OVERVIEW
-        )
+        TITLE = MOVIE_NAME, TAGLINE = MOVIE_TAGLINE, GENRES = MOVIE_GENRES, POSTER = MOVIE_POSTER_IMAGE,
+        WIKI = MOVIE_WIKI_LINK, BACKDROP = MOVIE_BACKDROP_IMAGE, OVERVIEW = MOVIE_OVERVIEW)
 
 app.run(debug=True)
